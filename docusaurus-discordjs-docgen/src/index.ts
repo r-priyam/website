@@ -1,12 +1,15 @@
 import type { LoadContext } from '@docusaurus/types';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import type { Documentation } from './docgen-output';
-import { generateLogString } from './logger';
-import { getPluginOptions } from './options';
-import { removeDir, renderOutputFiles, writeDocumentationCategory } from './render';
-import type { PluginOptions } from './types';
-import { from, isErr } from './utils';
+import { renderOutputFiles } from './lib/renderer/render';
+import { removeDir } from './lib/renderer/utils';
+import { writeCategoryYaml } from './lib/renderer/writeCategoryYaml';
+import type { Documentation } from './lib/types/docgen-output';
+import type { PluginOptions } from './lib/types/types';
+import { generateLogString } from './lib/utils/logger';
+import { getPluginOptions } from './lib/utils/options';
+import { pluginContainer } from './lib/utils/pluginContainer';
+import { from, isErr } from './lib/utils/utils';
 
 // store list of plugin ids when running multiple instances
 const apps: string[] = [];
@@ -22,11 +25,13 @@ export default function docusaurusDiscordjsDocgen(context: LoadContext, opts: Pa
 
 				const options = getPluginOptions(opts);
 
+				pluginContainer.pluginOptions = options;
+
 				const outputDir = resolve(siteDir, options.docsRoot, options.out);
 
 				removeDir(outputDir);
 
-				writeDocumentationCategory(outputDir, options);
+				writeCategoryYaml(outputDir, '', options.sidebar.categoryLabel, options.sidebar.position ?? 0);
 
 				const docgenJsonFile = from<Documentation>(() => {
 					return JSON.parse(readFileSync(resolve(options.docgenJsonFile), 'utf8'));

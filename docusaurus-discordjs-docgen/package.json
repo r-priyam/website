@@ -6,7 +6,13 @@
 	"files": [
 		"dist/"
 	],
+	"dependencies": {
+		"@sapphire/docusaurus-plugin-ts2esm2cjs": "^1.0.1",
+		"@sapphire/utilities": "^3.1.0",
+		"common-tags": "^1.8.2"
+	},
 	"devDependencies": {
-		"@docusaurus/types": "2.0.0-beta.14"
+		"@docusaurus/types": "2.0.0-beta.14",
+		"@types/common-tags": "^1.8.1"
 	}
 }

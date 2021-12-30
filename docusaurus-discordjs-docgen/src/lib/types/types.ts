@@ -2,8 +2,9 @@ export interface PluginOptions {
 	id: string;
 	docsRoot: string;
 	out: string;
-	sidebar: SidebarOptions;
 	docgenJsonFile: string;
+	packageName: string;
+	sidebar: SidebarOptions;
 	// readmeTitle?: string;
 	// globalsTitle?: string;
 	// plugin: string[];
@@ -19,17 +20,17 @@ export interface PluginOptions {
 }
 
 interface SidebarOptions {
-	fullNames?: boolean;
+	// fullNames?: boolean;
 	categoryLabel: string;
-	indexLabel?: string;
-	readmeLabel?: string;
+	// indexLabel?: string;
+	// readmeLabel?: string;
 	position: number | null;
 }
 
-interface SidebarCategory {
-	type: string;
-	label: string;
-	items: SidebarItem[];
-}
+// interface SidebarCategory {
+// 	type: string;
+// 	label: string;
+// 	items: SidebarItem[];
+// }
 
-type SidebarItem = SidebarCategory | string;
+// type SidebarItem = SidebarCategory | string;

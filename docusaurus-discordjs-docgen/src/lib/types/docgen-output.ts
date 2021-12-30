@@ -110,7 +110,10 @@ export interface DocumentationClassEvent {
 
 export interface DocumentationClass {
 	name: string;
-	description: string;
+	description?: string;
+	extendedDescription?: string;
+	examples?: string[];
+	see?: string[];
 	construct: DocumentationClassConstructor;
 	abstract: boolean;
 	access?: string;
