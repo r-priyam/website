@@ -1,0 +1,12 @@
+{
+	"name": "docusaurus-discordjs-docgen",
+	"version": "0.0.1",
+	"description": "A Docusaurus v2 plugin to build API documentation based on @discordjs/ts-docgen output.",
+	"main": "dist/index.js",
+	"files": [
+		"dist/"
+	],
+	"devDependencies": {
+		"@docusaurus/types": "2.0.0-beta.14"
+	}
+}

@@ -9,7 +9,7 @@ const BaseUrl = 'https://sapphirejs.dev';
 const Email = 'contact@sapphirejs.dev';
 const Title = 'Sapphire Framework';
 
-/** @type {import('@docusaurus/types').Config} */
+/** @type {import('@docusaurus/types').DocusaurusConfig} */
 const config = {
 	title: 'Sapphire',
 	url: BaseUrl,
@@ -47,6 +47,19 @@ const config = {
 					}
 				]
 			}
+		],
+		[
+			'docusaurus-discordjs-docgen',
+			/** @type {import('docusaurus-discordjs-docgen/dist/types').PluginOptions} */ ({
+				id: 'framework',
+				docgenJsonFile: './data/framework.json',
+				out: 'Documentation/api-framework',
+				sidebar: {
+					categoryLabel: '@sapphire/framework',
+					position: 0,
+					fullNames: true
+				}
+			})
 		]
 	],
 

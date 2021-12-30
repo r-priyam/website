@@ -32,3 +32,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 *.log
+
+# TODO: Remove later
+docusaurus-discordjs-docgen/dist/
