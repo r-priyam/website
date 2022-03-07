@@ -1,7 +1,21 @@
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { DocumentationCustom, DocumentationCustomFile } from '../types/docgen-output';
+import { transformPlainCssToReactCss } from './transformPlainCssToReactCss';
 import { writeCategoryYaml } from './writeCategoryYaml';
+
+const replaceCssRegex = /style=\\"(?<css>.*?)\\"/g;
+
+function customFileStylesParser(content: string): string {
+	return content.replace(replaceCssRegex, (match, _p1, _offset, _string, groups) => {
+		if (groups.css) {
+			const transformed = transformPlainCssToReactCss(groups.css);
+			return `style={${JSON.stringify(transformed)}}`;
+		}
+
+		return match;
+	});
+}
 
 function renderCustomFile(slug: string, customFile: DocumentationCustomFile, outputDir: string, sidebarPosition: number) {
 	const lowercaseCustomFileType = customFile.type.toLowerCase();
@@ -17,7 +31,7 @@ function renderCustomFile(slug: string, customFile: DocumentationCustomFile, out
 			'---'
 		].join('\n');
 
-		const customFileResult = `${customFileHeader}\n${customFile.content}`;
+		const customFileResult = `${customFileHeader}\n${customFileStylesParser(customFile.content)}`;
 		writeFileSync(resolve(outputDir, `${slug}.mdx`), customFileResult);
 	}
 }
