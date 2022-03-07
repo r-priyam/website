@@ -71,7 +71,7 @@ function parseExamples(examples?: string[]) {
 	let examplesString = '## Examples\n\n';
 
 	for (const example of examples) {
-		const exampleWithPlugin = example.replaceAll(/(```typescript)\n/g, '$1 ts2esm2cjs\n');
+		const exampleWithPlugin = example.replace(/(```typescript)\n/g, '$1 ts2esm2cjs\n');
 
 		examplesString += `${exampleWithPlugin}\n\n`;
 	}
