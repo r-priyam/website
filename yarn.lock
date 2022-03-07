@@ -2652,6 +2652,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sapphire/result@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@sapphire/result@npm:1.1.0"
+  checksum: 5e838f54c2376d2992ca2d7f0ca13b22e849120f07b834ce9349c9d47e9e730ba1a04c72073d22f63a18eae0c89eca23bdc487e8d18113b654c62137c625cf79
+  languageName: node
+  linkType: hard
+
 "@sapphire/ts-config@npm:^3.3.1":
   version: 3.3.1
   resolution: "@sapphire/ts-config@npm:3.3.1"
@@ -5829,6 +5836,7 @@ __metadata:
   dependencies:
     "@docusaurus/types": 2.0.0-beta.14
     "@sapphire/docusaurus-plugin-ts2esm2cjs": ^1.0.1
+    "@sapphire/result": ^1.1.0
     "@sapphire/utilities": ^3.1.0
     "@types/common-tags": ^1.8.1
     common-tags: ^1.8.2

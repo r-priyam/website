@@ -1,4 +1,5 @@
 import type { LoadContext } from '@docusaurus/types';
+import { from, isErr } from '@sapphire/result';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { renderOutputFiles } from './lib/renderer/render';
@@ -9,7 +10,6 @@ import type { PluginOptions } from './lib/types/types';
 import { generateLogString } from './lib/utils/logger';
 import { getPluginOptions } from './lib/utils/options';
 import { pluginContainer } from './lib/utils/pluginContainer';
-import { from, isErr } from './lib/utils/utils';
 
 // store list of plugin ids when running multiple instances
 const apps: string[] = [];

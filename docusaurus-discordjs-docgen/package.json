@@ -6,8 +6,13 @@
 	"files": [
 		"dist/"
 	],
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w"
+	},
 	"dependencies": {
 		"@sapphire/docusaurus-plugin-ts2esm2cjs": "^1.0.1",
+		"@sapphire/result": "^1.1.0",
 		"@sapphire/utilities": "^3.1.0",
 		"common-tags": "^1.8.2",
 		"css": "^3.0.0"
