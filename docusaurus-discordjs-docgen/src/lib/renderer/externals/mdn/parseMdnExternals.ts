@@ -8,24 +8,24 @@ export function parseMdnExternals(content: string): string {
 	// Early exit if there is nothing to parse
 	if (isNullishOrEmpty(content)) return content;
 
-	content = replaceContent(content, extractGenericType, true);
-	content = replaceContent(content, extractGenericTypeInfill, true);
-	content = replaceContent(content, extractContentWithLink, false);
+	content = replaceContent(content, extractGenericType);
+	content = replaceContent(content, extractGenericTypeInfill);
+	content = replaceContent(content, extractContentWithLink);
 
 	return content;
 }
 
-function replaceContent(content: string, extractor: (content: string) => MatchResult[], useMatch: boolean) {
+function replaceContent(content: string, extractor: (content: string) => MatchResult[]) {
 	const matchGroupsForLinks = extractor(content);
 
 	for (const match of matchGroupsForLinks) {
-		const { matchContent, index } = match;
-		const discordjsLink = resolveGlobals(matchContent) ?? resolveDom(matchContent) ?? resolveCss(matchContent);
+		const { matchContent } = match;
+		const mdnLink = resolveGlobals(matchContent) ?? resolveDom(matchContent) ?? resolveCss(matchContent);
 
-		if (discordjsLink) {
-			const markdownLink = `[${useMatch ? match.match : match.matchContent}](${discordjsLink})`;
+		if (mdnLink) {
+			const markdownLink = `[\`${match.matchContent}\`](${mdnLink})`;
 
-			content = content.substring(0, index) + markdownLink + content.substring(index + match.match.length);
+			content = content.replace(matchContent, markdownLink);
 		}
 	}
 

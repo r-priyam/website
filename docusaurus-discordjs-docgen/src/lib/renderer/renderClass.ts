@@ -1,12 +1,12 @@
 import { isNullishOrEmpty } from '@sapphire/utilities';
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import type { DocumentationClass } from '../types/docgen-output';
+import type { Documentation, DocumentationClass } from '../types/docgen-output';
 import { pluginContainer } from '../utils/pluginContainer';
 import { parseContent } from './utils';
 import { writeCategoryYaml } from './writeCategoryYaml';
 
-function renderClass(dClass: DocumentationClass, outputDir: string, sidebarPosition: number) {
+function renderClass(jsonFileContent: Documentation, dClass: DocumentationClass, outputDir: string, sidebarPosition: number) {
 	const slug = dClass.name.toLowerCase().replace(/\s/g, '-');
 
 	const classHeader = [
@@ -26,13 +26,13 @@ function renderClass(dClass: DocumentationClass, outputDir: string, sidebarPosit
 	const classExtendedDescription = dClass.extendedDescription ?? '';
 
 	const classResult = `${classHeader}
-${isNullishOrEmpty(classExtends) ? '' : `**extends ${parseContent(classExtends)}**`}
-${isNullishOrEmpty(classImplements) ? '' : `**implements ${parseContent(classImplements)}**`}
+${isNullishOrEmpty(classExtends) ? '' : `**extends ${parseContent(jsonFileContent, classExtends)}**`}
+${isNullishOrEmpty(classImplements) ? '' : `**implements ${parseContent(jsonFileContent, classImplements)}**`}
 
-${parseContent(classDescription)}
+${parseContent(jsonFileContent, classDescription)}
 
-${parseContent(classExtendedDescription)}
-${parseSee(dClass.see)}
+${parseContent(jsonFileContent, classExtendedDescription)}
+${parseSee(jsonFileContent, dClass.see)}
 
 ${parseExamples(dClass.examples)}
 
@@ -41,12 +41,13 @@ ${parseConstructor(dClass)}
 
 	writeFileSync(resolve(outputDir, `${slug}.mdx`), classResult);
 }
-export function renderClasses(documentationClasses: DocumentationClass[], outputDir: string) {
+
+export function renderClasses(jsonFileContent: Documentation, documentationClasses: DocumentationClass[], outputDir: string) {
 	const categoryDir = writeCategoryYaml(outputDir, 'classes', 'Classes', 1);
 
 	let fileSidebarPosition = 0;
 	for (const documentationClass of documentationClasses) {
-		renderClass(documentationClass, categoryDir, fileSidebarPosition);
+		renderClass(jsonFileContent, documentationClass, categoryDir, fileSidebarPosition);
 
 		fileSidebarPosition++;
 	}
@@ -90,6 +91,6 @@ new ${dClass.name}(${classConstructorParameters});
 \`\`\``;
 }
 
-function parseSee(see?: string[]) {
-	return see?.map((seeItem) => `\n**\`See also:\`** ${parseContent(seeItem)}`).join('\n') ?? '';
+function parseSee(jsonFileContent: Documentation, see?: string[]) {
+	return see?.map((seeItem) => `\n**\`See also:\`** ${parseContent(jsonFileContent, seeItem)}`).join('\n') ?? '';
 }

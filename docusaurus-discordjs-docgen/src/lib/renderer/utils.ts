@@ -1,17 +1,20 @@
 import { existsSync, mkdirSync, readdirSync, rmdirSync, statSync, unlinkSync } from 'node:fs';
+import type { Documentation } from '../types/docgen-output';
 import { parseDiscordjsExternals } from './externals/discordjs/parseDiscordjsExternals';
 import { parseMdnExternals } from './externals/mdn/parseMdnExternals';
+import { parseSapphire } from './externals/sapphire/parseSapphire';
 
-export function parseContent(content: string) {
+export function parseContent(jsonFileContent: Documentation, content: string) {
+	content = escapeGreaterThanSymbols(content);
+	content = parseSapphire(jsonFileContent, content);
 	content = parseDiscordjsExternals(content);
 	content = parseMdnExternals(content);
-	content = escapeGreaterThanSymbols(content);
 
 	return content;
 }
 
 export function escapeGreaterThanSymbols(markdown: string) {
-	return markdown.replace(/<([A-Za-z]+)>/gm, '<`$1`\\>');
+	return markdown.replace(/<([A-Za-z]+)>/gm, '<$1\\>');
 }
 
 export function removeDir(outputDir: string) {

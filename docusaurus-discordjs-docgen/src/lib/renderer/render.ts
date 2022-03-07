@@ -9,6 +9,6 @@ export function renderOutputFiles(jsonFileContent: Documentation, outputDir: str
 	}
 
 	if (Reflect.has(jsonFileContent, 'classes')) {
-		renderClasses(jsonFileContent.classes, outputDir);
+		renderClasses(jsonFileContent, jsonFileContent.classes, outputDir);
 	}
 }
