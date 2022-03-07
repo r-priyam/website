@@ -4,7 +4,7 @@ import type { DocumentationCustom, DocumentationCustomFile } from '../types/docg
 import { transformPlainCssToReactCss } from './transformPlainCssToReactCss';
 import { writeCategoryYaml } from './writeCategoryYaml';
 
-const replaceCssRegex = /style=\\"(?<css>.*?)\\"/g;
+const replaceCssRegex = /style=\"(?<css>.*?)\"/g;
 
 function customFileStylesParser(content: string): string {
 	return content.replace(replaceCssRegex, (match, _p1, _offset, _string, groups) => {
