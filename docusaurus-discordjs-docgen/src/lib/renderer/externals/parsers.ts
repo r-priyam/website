@@ -1,6 +1,6 @@
 const linkExtractorRegex = /{@link (?<match>[A-Za-z.]+)}/g;
 const genericTypeInfillRegex = /\[?[A-Za-z]+\]?(?:\([\.A-Za-z\/]+\))?<(?<match>[A-Za-z]+)\\?>/g;
-const genericTypeRegex = /(?<match>[A-Za-z]+)<\[?[A-Za-z]+\]?(?:\([\.A-Za-z\/]+\))?\\?>/g;
+const genericTypeRegex = /(?<match>[A-Za-z]+)(?:<\[?[A-Za-z]+\]?(?:\([\.A-Za-z\/]+\))?\\?>)?/g;
 
 export interface MatchResult {
 	match: string;

@@ -43,7 +43,7 @@ ${parseConstructor(dClass)}
 }
 
 export function renderClasses(jsonFileContent: Documentation, documentationClasses: DocumentationClass[], outputDir: string) {
-	const categoryDir = writeCategoryYaml(outputDir, 'classes', 'Classes', 1);
+	const categoryDir = writeCategoryYaml(outputDir, 'class', 'Classes', 1);
 
 	let fileSidebarPosition = 0;
 	for (const documentationClass of documentationClasses) {

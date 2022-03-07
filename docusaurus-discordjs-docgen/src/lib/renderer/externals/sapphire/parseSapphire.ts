@@ -2,6 +2,8 @@ import { isNullishOrEmpty } from '@sapphire/utilities';
 import type { Documentation } from '../../../types/docgen-output';
 import { extractContentWithLink, extractGenericType, extractGenericTypeInfill, type MatchResult } from '../parsers';
 import { resolveClasses } from './resolveClasses';
+import { resolveNamespaces } from './resolveNamespaces';
+import { resolveTypeDefs } from './resolveTypeDefs';
 
 export function parseSapphire(jsonFileContent: Documentation, content: string): string {
 	// Early exit if there is nothing to parse
@@ -19,7 +21,10 @@ function replaceContent(jsonFileContent: Documentation, content: string, extract
 
 	for (const match of matchGroupsForLinks) {
 		const { matchContent } = match;
-		const docsLink = resolveClasses(matchContent, jsonFileContent.classes);
+		const docsLink =
+			resolveClasses(matchContent, jsonFileContent.classes) ??
+			resolveTypeDefs(matchContent, jsonFileContent.typedefs) ??
+			resolveNamespaces(matchContent, jsonFileContent.namespaces);
 
 		if (docsLink) {
 			const markdownLink = `[\`${match.matchContent}\`](${docsLink})`;

@@ -33,6 +33,18 @@ type DocumentationExternalMeta = DocumentationClassMeta;
 type DocumentationTypeDefinitionMeta = DocumentationClassMeta;
 type DocumentationTypeDefinitionParameterMeta = DocumentationClassMeta;
 
+export interface DocumentationTypeAlias {
+	name: string;
+	type?: string[][][];
+	meta: DocumentationClassMeta;
+}
+
+export interface DocumentationInterface {
+	name: string;
+	props: DocumentationClassPropertyProperty[];
+	meta: DocumentationClassMethodPropertyMeta;
+}
+
 export interface DocumentationParameter {
 	name: string;
 	description?: string;
@@ -147,8 +159,6 @@ export interface DocumentationExternal {
 	meta: DocumentationExternalMeta;
 }
 
-export type DocumentationInterface = DocumentationClass;
-
 enum DocumentationLinkParams {
 	class = 'class',
 	typedef = 'typedef'
@@ -167,12 +177,25 @@ export interface DocumentationLink {
 export interface DocumentationTypeDefinition {
 	name: string;
 	description: string;
+	extendedDescription?: string | undefined;
 	access?: string;
 	props: DocumentationTypeDefinitionProperty[];
 	params?: DocumentationTypeDefinitionParameter[];
 	see?: string[];
 	type?: string[][][];
 	returns?: DocumentationReturns;
+	meta: DocumentationTypeDefinitionMeta;
+}
+
+export interface DocumentationNamespace {
+	name: string;
+	description: string;
+	extendedDescription?: string | undefined;
+	see?: string[];
+	deprecated?: boolean | string;
+	typeAliases?: DocumentationTypeAlias[];
+	interfaces?: DocumentationInterface[];
+	enumerations?: unknown[];
 	meta: DocumentationTypeDefinitionMeta;
 }
 
@@ -192,13 +215,14 @@ export type DocIterateeUnion =
 export interface Documentation {
 	classes: DocumentationClass[];
 	custom: DocumentationCustom;
-	externals: DocumentationExternal[];
-	//   global?: string;
-	interfaces: DocumentationInterface[];
-	links: DocumentationLink[];
+	// externals: DocumentationExternal[];
+	// global?: string;
+	// interfaces: DocumentationInterface[];
+	// links: DocumentationLink[];
 	meta: DocumentationMeta;
 	//   id?: string;
 	//   source?: string;
 	//   tag?: string;
 	typedefs: DocumentationTypeDefinition[];
+	namespaces: DocumentationNamespace[];
 }

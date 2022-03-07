@@ -4,7 +4,7 @@ export function resolveClasses(name: string, allClasses: DocumentationClass[]): 
 	const allClassNames = allClasses.map((c) => c.name);
 
 	if (allClassNames.includes(name)) {
-		return `../classes/${name.toLowerCase().replace(/\s/g, '-')}.mdx`;
+		return `../class/${name.toLowerCase().replace(/\s/g, '-')}.mdx`;
 	}
 
 	return undefined;
