@@ -14,8 +14,10 @@ const config = {
 	title: 'Sapphire',
 	url: BaseUrl,
 	baseUrl: '/',
-	onBrokenLinks: 'throw',
-	onBrokenMarkdownLinks: 'throw',
+	// TODO: Re-enable after adding all JSON files. See temporary-errors-log-of-broken-links.md
+	onBrokenLinks: 'warn',
+	// TODO: Re-enable after adding all JSON files. See temporary-errors-log-of-broken-links.md
+	onBrokenMarkdownLinks: 'warn',
 	onDuplicateRoutes: 'throw',
 	favicon: 'img/favicon.ico',
 	tagline: Description,
